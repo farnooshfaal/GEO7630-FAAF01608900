@@ -15,10 +15,9 @@ services:
   #   ports:
   #   - 8801:7800
   #   environment:
-  #     ## CHANGE connection string from .env file
   #   - DATABASE_URL=${DATABASE_URL_GEO7630}
-  #   # volumes:
-  #   # - ./pg_tileserv.toml:/etc/pg_tileserv.toml
+  #   volumes:
+  #   - ./pg_tileserv.toml:/etc/pg_tileserv.toml
   #   depends_on:
   #   - "pg"
   #   restart: always
@@ -27,25 +26,22 @@ services:
   #   ports:
   #   - 9000:9000
   #   environment:
-  #     ## CHANGE connection string from .env file
+  #   # CHANGE connection string from .env file
   #   - DATABASE_URL=${DATABASE_URL_GEO7630}
   #   depends_on:
   #   - "pg"
   #   restart: always
-  #   geoserver:
-  #      image: geosolutionsit/geoserver
-  #      ports:
-  #      - 8080:8080
-  #      environment:
-  #      - INSTALL_EXTENSIONS=true
-  #     - STABLE_EXTENSIONS="PGRaster"
-  #   titiler:
-  #    image: "developmentseed/titiler"
-  #    ports:
-  #      - 8000:8000
-  #     environment:
-  #      - PORT=8000
-  #      - WORKERS_PER_CORE=1
+  geoserver:
+      image: geosolutionsit/geoserver
+      ports:
+      - 8080:8080
+      environment:
+      - INSTALL_EXTENSIONS=true
+      - STABLE_EXTENSIONS="PGRaster"
+      volumes:
+      - ./web.xml:/usr/local/tomcat/webapps/geoserver/WEB-INF/web.xml
+      - ../Laboratoires/Lab7/geoserverData:/var/geoserver/datadir
+      # - ./catalina.xml:/usr/local/tomcat/conf/web.xml
+      restart: always
 volumes:
   pgdata:
-
